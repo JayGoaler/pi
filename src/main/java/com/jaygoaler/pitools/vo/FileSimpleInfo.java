@@ -23,7 +23,7 @@ public class FileSimpleInfo implements Serializable {
     /**
      * 文件名
      */
-    private String name;
+    private String label;
     /**
      * 父节点ID
      */
