@@ -1,15 +1,15 @@
 package com.jaygoaler.pitools.controller;
 
+import com.jaygoaler.pitools.dto.ApiResultDTO;
 import com.jaygoaler.pitools.service.DownloadService;
 import com.jaygoaler.pitools.utils.DownloadUtils;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -22,22 +22,35 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @Api(tags = "下载文件操作控制器", value = "下载文件操作控制器")
 @RestController
-@RequestMapping("/download")
-public class DownloadController extends BaseApiController {
+@RequestMapping("/file")
+public class FileController extends BaseApiController {
 
     @Autowired
     private DownloadService downloadService;
 
-    @GetMapping("/{labgbm}")
-    public void downloadLabgFile(@PathVariable String bm, HttpServletResponse response) {
+
+    @ApiOperation("下载文件")
+    @GetMapping("/{fileId}")
+    public void downloadLabgFile(@PathVariable String fileId, HttpServletResponse response) {
         try {
-            this.downloadService.downloadLabgFile(bm, response);
+            this.downloadService.downloadLabgFile(fileId, response);
         } catch (NullPointerException e) {
             log.error("JjjcSlfgPzController_error", e);
             DownloadUtils.responseErrorInfo(response, "内部服务层对象为空");
         } catch (Exception e) {
             log.error("JjjcSlfgPzController_error", e);
             DownloadUtils.responseErrorInfo(response, e.getMessage());
+        }
+    }
+
+    @ApiOperation("保存文件")
+    @PostMapping("/uploadFile")
+    public ApiResultDTO uploadFile(HttpServletRequest request){
+        try {
+            return this.downloadService.uploadFile(request);
+        } catch (NullPointerException e) {
+            log.error("JjjcSlfgPzController_error", e);
+            return ApiResultDTO.getFailedInfo(e.getMessage());
         }
     }
 }

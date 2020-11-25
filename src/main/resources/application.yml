@@ -10,3 +10,6 @@ spring:
     name: pitools
   profiles:
     active: dev
+
+pi:
+  fileSavePath: E:\TEMP\pitest
