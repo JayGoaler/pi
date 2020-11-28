@@ -5,7 +5,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://120.78.123.215:3316/piproject?useUnicode=true&characterEncoding=utf8
     username: root
-    password: 123456
+    password: yangjie520
   application:
     name: pitools
   profiles:

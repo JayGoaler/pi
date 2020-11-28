@@ -5,6 +5,7 @@ import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -20,10 +21,6 @@ public class User implements Serializable {
     private String password;
 
     private static final long serialVersionUID = 1L;
-
-    public void setPassword(String password) {
-        this.password = Base64.encodeBase64String(password.getBytes());;
-    }
 
     @Override
     public boolean equals(Object that) {
