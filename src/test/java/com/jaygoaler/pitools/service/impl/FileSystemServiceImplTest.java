@@ -34,7 +34,7 @@ class FileSystemServiceImplTest {
         }
         String name = file.getName();
         String path = file.getAbsolutePath();
-        FileInfo tree = new FileInfo(Encrypt.getMD5Code(path).toLowerCase(),name,path,parentid);
+        FileInfo tree = new FileInfo(Encrypt.getMD5Code(path).toLowerCase(),name,path,parentid,file.isFile());
         list.add(tree);
         //3.获取文件夹路径下面的所有文件递归调用；
         if(file.isDirectory()){

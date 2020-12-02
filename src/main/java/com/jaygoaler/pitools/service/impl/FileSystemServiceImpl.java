@@ -42,7 +42,7 @@ public class FileSystemServiceImpl implements FileSystemService {
         pathMap = resultList.stream().collect(Collectors.toMap(FileInfo::getId,FileInfo::getPath));
         List<FileSimpleInfo> simpleInfos = Lists.newArrayList();
         resultList.forEach(fileInfo -> {
-            simpleInfos.add(new FileSimpleInfo(fileInfo.getId(),fileInfo.getName(),fileInfo.getParentId()));
+            simpleInfos.add(new FileSimpleInfo(fileInfo.getId(),fileInfo.getName(),fileInfo.getParentId(),fileInfo.isFile()));
         });
         return ApiResultDTO.getSuccessInfo(simpleInfos);
     }
@@ -64,7 +64,7 @@ public class FileSystemServiceImpl implements FileSystemService {
         }
         String name = file.getName();
         String path = file.getAbsolutePath();
-        FileInfo tree = new FileInfo(Encrypt.getMD5Code(path).toLowerCase(),name,path,parentid);
+        FileInfo tree = new FileInfo(Encrypt.getMD5Code(path).toLowerCase(),name,path,parentid,file.isFile());
         list.add(tree);
         //3.获取文件夹路径下面的所有文件递归调用；
         if(file.isDirectory()){

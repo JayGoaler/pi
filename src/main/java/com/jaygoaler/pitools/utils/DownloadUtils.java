@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 
@@ -50,7 +51,7 @@ public class DownloadUtils {
         ServletOutputStream outputStream = null;
         try {
             response.setHeader("content-type", "application/octet-stream");
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName.substring(fileName.lastIndexOf(File.separator)+1), "UTF-8"));
             response.addHeader("Content-Length", "" + fileData.length);
             outputStream = response.getOutputStream();
             outputStream.write(fileData);

@@ -8,9 +8,11 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author zhanglj
@@ -45,9 +47,9 @@ public class FileController extends BaseApiController {
 
     @ApiOperation("保存文件")
     @PostMapping("/uploadFile")
-    public ApiResultDTO uploadFile(HttpServletRequest request){
+    public ApiResultDTO uploadFile(@RequestParam Map<String,String> map, @RequestParam("file") MultipartFile[] file, HttpServletRequest request){
         try {
-            return this.downloadService.uploadFile(request);
+            return this.downloadService.uploadFile(map,file);
         } catch (NullPointerException e) {
             log.error("JjjcSlfgPzController_error", e);
             return ApiResultDTO.getFailedInfo(e.getMessage());

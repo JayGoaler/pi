@@ -32,4 +32,9 @@ public class FileInfo implements Serializable {
      * 父节点ID
      */
     private String parentId;
+
+    /**
+     * 是否为目录
+     */
+    private boolean file;
 }

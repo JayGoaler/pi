@@ -28,4 +28,6 @@ public class FileSimpleInfo implements Serializable {
      * 父节点ID
      */
     private String parentId;
+
+    private boolean file;
 }
