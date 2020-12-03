@@ -9,7 +9,9 @@ spring:
   application:
     name: pitools
   profiles:
-    active: dev
+    active: pro
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/static/,classpath:/static/,classpath:/public
 
 pi:
   fileSavePath: E:\TEMP\pitest
