@@ -9,7 +9,7 @@ spring:
   application:
     name: pitools
   profiles:
-    active: pro
+    active: dev
   freemarker:
     charset: UTF-8
     default_encoding: UTF-8
