@@ -22,12 +22,4 @@ public class PitoolsApplication {
     public RestTemplate createRestTemplate(){
         return new RestTemplate();
     }
-
-    @Bean
-    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
-        return factory -> {
-            ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/index.html");
-            factory.addErrorPages(error404Page);
-        };
-    }
 }
