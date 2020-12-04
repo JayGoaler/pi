@@ -18,7 +18,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>./logs/info/info.%d.log</fileNamePattern>
+            <fileNamePattern>logs/info/info.%d.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
 
@@ -38,7 +38,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>./logs/error/error.%d.log</fileNamePattern>
+            <fileNamePattern>logs/error/error.%d.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
 

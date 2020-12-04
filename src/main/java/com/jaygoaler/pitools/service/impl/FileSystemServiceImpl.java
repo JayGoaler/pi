@@ -8,12 +8,12 @@ import com.jaygoaler.pitools.vo.FileInfo;
 import com.jaygoaler.pitools.vo.FileSimpleInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -78,4 +78,33 @@ public class FileSystemServiceImpl implements FileSystemService {
         }
         return list;
     }
+
+    /**
+     * 获取叶子节点
+     * @param filepath
+     * @param parentid
+     * @return
+     * @throws FileNotFoundException
+     */
+     private List<FileInfo> getLeaf(String filepath, String parentid) throws FileNotFoundException{
+         List<FileInfo> list = Lists.newArrayList();
+         File file = new File(filepath);
+         //1.判断文件
+         if(!file.exists()){
+             throw new FileNotFoundException("文件不存在");
+         }
+
+         File[] files = file.listFiles();
+         assert files != null;
+         if(files.length==0){
+             return Collections.emptyList();
+         }
+         for(File leaf : files){
+             String name = leaf.getName();
+             String path = leaf.getAbsolutePath();
+             FileInfo tree = new FileInfo(Encrypt.getMD5Code(path).toLowerCase(),name,path,parentid,file.isFile());
+             list.add(tree);
+         }
+         return list;
+     }
 }
