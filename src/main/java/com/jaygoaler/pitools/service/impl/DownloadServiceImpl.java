@@ -1,32 +1,22 @@
 package com.jaygoaler.pitools.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.jaygoaler.pitools.dto.ApiResultDTO;
 import com.jaygoaler.pitools.service.DownloadService;
 import com.jaygoaler.pitools.service.FileSystemService;
 import com.jaygoaler.pitools.utils.DownloadUtils;
-import com.jaygoaler.pitools.utils.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadBase;
-import org.apache.commons.fileupload.ProgressListener;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Map;
 
 
@@ -91,12 +81,17 @@ public class DownloadServiceImpl implements DownloadService {
 
     @Override
     public ApiResultDTO uploadFile(Map<String,String> map, MultipartFile[] file){
+        if(file.length==0){
+            return ApiResultDTO.getSuccessInfo("文件列表为0，上传失败！");
+        }
         try{
             String id = map.get("id");
             String path = fileSystemService.getPathMap().get(id);
+            log.info("id:"+id+",路径:"+path);
             if(path==null){
                 fileSystemService.getFileTree();
             }
+            assert path != null;
             File dir = new File(path);
             if(!dir.exists()){
                 dir.mkdirs();
@@ -109,9 +104,10 @@ public class DownloadServiceImpl implements DownloadService {
                 String diskPath = path+File.separator+fileName;
                 File diskFile = new File(diskPath);
                 multipartFile.transferTo(diskFile);
+                log.info("文件已存放至"+diskFile.getAbsolutePath()+",文件大小："+diskFile.length());
             }
         }catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             ApiResultDTO.getFailedInfo("其他异常，上传失败！！！");
         }
         return ApiResultDTO.getSuccessInfo("文件上传成功！");

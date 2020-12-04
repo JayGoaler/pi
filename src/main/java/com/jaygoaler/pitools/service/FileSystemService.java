@@ -18,6 +18,15 @@ public interface FileSystemService {
     ApiResultDTO getFileTree() throws FileNotFoundException;
 
     /**
+     * 获取叶子节点
+     * @param type
+     * @param id
+     * @return
+     * @throws FileNotFoundException
+     */
+    ApiResultDTO getTreeLeafInfo(int type,String id)throws FileNotFoundException;
+
+    /**
      * 获取缓存的集合
      * @return
      */

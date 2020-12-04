@@ -39,12 +39,41 @@ public class FileSystemServiceImpl implements FileSystemService {
         if(pathMap==null){
             pathMap = Maps.newHashMap();
         }
-        pathMap = resultList.stream().collect(Collectors.toMap(FileInfo::getId,FileInfo::getPath));
+        List<FileSimpleInfo> simpleInfos = getSimpleInfos(resultList);
+        return ApiResultDTO.getSuccessInfo(simpleInfos);
+    }
+
+    @Override
+    public ApiResultDTO getTreeLeafInfo(int type,String id)throws FileNotFoundException {
+        List<FileInfo> resultList;
+        if(type==1){
+            File root = new File(fileSavePath);
+            FileInfo tree = new FileInfo(Encrypt.getMD5Code(fileSavePath).toLowerCase(),root.getName(),fileSavePath,null,root.isFile());
+            resultList = Lists.newArrayList(tree);
+        }else{
+            String path = pathMap.get(id);
+            if(path==null){
+                return ApiResultDTO.getFailedInfo("此ID无对应目录！");
+            }
+            resultList = getLeaf(path,id);
+        }
+        List<FileSimpleInfo> simpleInfos = getSimpleInfos(resultList);
+        return ApiResultDTO.getSuccessInfo(simpleInfos);
+    }
+
+    private List<FileSimpleInfo> getSimpleInfos(List<FileInfo> resultList) {
+        if(resultList==null || resultList.size()==0){
+            return Collections.emptyList();
+        }
+        if(pathMap==null){
+            pathMap = Maps.newHashMap();
+        }
+        pathMap.putAll(resultList.stream().collect(Collectors.toMap(FileInfo::getId,FileInfo::getPath)));
         List<FileSimpleInfo> simpleInfos = Lists.newArrayList();
         resultList.forEach(fileInfo -> {
             simpleInfos.add(new FileSimpleInfo(fileInfo.getId(),fileInfo.getName(),fileInfo.getParentId(),fileInfo.isFile()));
         });
-        return ApiResultDTO.getSuccessInfo(simpleInfos);
+        return simpleInfos;
     }
 
     @Override
@@ -102,7 +131,7 @@ public class FileSystemServiceImpl implements FileSystemService {
          for(File leaf : files){
              String name = leaf.getName();
              String path = leaf.getAbsolutePath();
-             FileInfo tree = new FileInfo(Encrypt.getMD5Code(path).toLowerCase(),name,path,parentid,file.isFile());
+             FileInfo tree = new FileInfo(Encrypt.getMD5Code(path).toLowerCase(),name,path,parentid,leaf.isFile());
              list.add(tree);
          }
          return list;
