@@ -22,5 +22,19 @@ spring:
 
 pi:
   fileSavePath: E:\TEMP\pitest
+  ftp:
+    #ftp服务器的地址
+    host: jaygoaler.xyz
+    #ftp服务器的端口号（连接端口号）
+    port: 21
+    #ftp的用户名
+    userName: ftp_jay
+    #ftp的密码
+    password: yangjie520
+    #ftp上传的根目录
+    basePath: /home/data/jay
+    #回显地址
+    httpPath:
+
 
 ## /Users/jaygoaler/project

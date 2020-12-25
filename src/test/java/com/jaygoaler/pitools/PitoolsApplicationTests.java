@@ -1,5 +1,6 @@
 package com.jaygoaler.pitools;
 
+import org.apache.commons.net.ftp.FTPClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,6 +13,29 @@ import java.io.InputStream;
 class PitoolsApplicationTests {
 
     private String basePath = "E:\\TEMP\\pitest";
+
+    private String host = "jaygoaler.xyz";
+    private Integer port = 21;
+    private String username = "ftp_jay";
+    private String password = "yangjie520";
+    private String baseFtpPath = "";
+    private String httpPath = "";
+    @Test
+    void testFtp() throws IOException {
+        FTPClient client = new FTPClient();
+
+        //3、定义返回的状态码
+        int reply;
+        //4、连接ftp(当前项目所部署的服务器和ftp服务器之间可以相互通讯，表示连接成功)
+        client.connect(host,port);
+        //5、输入账号和密码进行登录
+        client.login(username,password);
+        //6、接受状态码(如果成功，返回230，如果失败返回503)
+        reply=client.getReplyCode();
+        System.out.printf("------------");
+        System.out.print(reply);
+        System.out.printf("------------");
+    }
 
     @Test
     void contextLoads() {
