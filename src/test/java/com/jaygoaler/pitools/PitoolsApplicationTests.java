@@ -32,9 +32,13 @@ class PitoolsApplicationTests {
         client.login(username,password);
         //6、接受状态码(如果成功，返回230，如果失败返回503)
         reply=client.getReplyCode();
-        System.out.printf("------------");
-        System.out.print(reply);
-        System.out.printf("------------");
+        System.out.println("------------");
+        if(reply>=200 && reply<300){
+            System.out.println("连接成功！");
+        }else {
+            System.out.println("连接失败");
+        }
+        System.out.println("------------");
     }
 
     @Test
