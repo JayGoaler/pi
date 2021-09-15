@@ -1,12 +1,10 @@
-package com.jaygoaler.pitools.entity;
+package com.jaygoaler.pitools.model;
 
 import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.apache.commons.codec.binary.Base64;
 
 /**
  * USER

@@ -3,9 +3,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://120.78.123.215:3316/piproject?useUnicode=true&characterEncoding=utf8
-    username: root
-    password: yangjie520
+    url: jdbc:mariadb://139.155.49.170:3316/piproject?useUnicode=true&characterEncoding=utf8
+    username: pi
+    password: yangjie
   application:
     name: pitools
   profiles:
@@ -21,7 +21,7 @@ spring:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/static/,classpath:/static/,classpath:/public
 
 pi:
-  fileSavePath: E:\TEMP\pitest
+  fileSavePath: D:\Recive\uploadFiles
   ftp:
     #ftp服务器的地址
     host: jaygoaler.xyz

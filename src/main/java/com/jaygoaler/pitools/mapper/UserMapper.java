@@ -1,7 +1,7 @@
 package com.jaygoaler.pitools.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jaygoaler.pitools.entity.User;
+import com.jaygoaler.pitools.model.User;
 
 /**
  * @author jaygoaler

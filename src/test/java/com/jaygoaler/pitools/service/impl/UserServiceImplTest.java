@@ -1,8 +1,7 @@
 package com.jaygoaler.pitools.service.impl;
 
-import com.jaygoaler.pitools.entity.User;
+import com.jaygoaler.pitools.model.User;
 import com.jaygoaler.pitools.mapper.UserMapper;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.junit.jupiter.api.Test;

@@ -219,8 +219,8 @@ class FtpServiceImplTest {
         System.out.println("FTP 连接是否成功：" + ftpClient.isConnected());
         System.out.println("FTP 连接是否有效：" + ftpClient.isAvailable());
         System.out.println("-----------------------文件下载------------------------");
-        downloadSingleFile(ftpClient, "E:\\TEMP\\pitest", "/home/data/jay/9.0牧师全掉落.xlsx");
-        downloadSingleFile(ftpClient, "E:\\TEMP\\pitest", "/home/data/jay/work/testTxt.txt");
+        downloadSingleFile(ftpClient, "D:\\Recive\\uploadFiles\\pitest", "/home/data/jay/9.0牧师全掉落.xlsx");
+        downloadSingleFile(ftpClient, "D:\\Recive\\uploadFiles\\pitest", "/home/data/jay/work/testTxt.txt");
         closeFTPConnect(ftpClient);
         System.out.println("-----------------------应用关闭------------------------");
     }
